@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ЭЛЕКТРИУМ: пора в дорогу!  — Полная программа практикума</title>
+<style>
+    :root {
+        --wood: #8B5A2B;
+        --wood-light: #C69C6D;
+        --neon-blue: #00E5FF;
+        --neon-yellow: #FFD60A;
+        --neon-purple: #B026FF;
+        --neon-green: #39FF14;
+        --dark: #1a1a2e;
+        --darker: #0f0f1e;
+        --light: #f5f5f5;
+        --accent: #FF6B35;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        background: linear-gradient(135deg, #0f0f1e 0%, #1a1a2e 100%);
+        color: var(--light);
+        line-height: 1.6;
+    }
+    header {
+        background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+        padding: 40px 20px;
+        text-align: center;
+        border-bottom: 3px solid var(--neon-blue);
+        box-shadow: 0 0 30px rgba(0, 229, 255, 0.3);
+    }
+    .logo-container {
+        display: inline-flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+    .logo-svg {
+        width: 100px;
+        height: 100px;
+        filter: drop-shadow(0 0 10px var(--neon-blue));
+    }
+    h1 {
+        font-size: 3em;
+        color: var(--neon-yellow);
+        text-shadow: 0 0 20px var(--neon-yellow), 2px 2px 0 var(--wood);
+        letter-spacing: 3px;
+    }
+    .subtitle {
+        color: var(--neon-blue);
+        font-size: 1.2em;
+        margin-top: 10px;
+        letter-spacing: 2px;
+    }
+    nav {
+        background: var(--darker);
+        padding: 15px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 2px solid var(--wood);
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    nav a {
+        color: var(--neon-blue);
+        text-decoration: none;
+        margin: 0 8px;
+        padding: 8px 14px;
+        border: 1px solid var(--neon-blue);
+        border-radius: 20px;
+        transition: all 0.3s;
+        display: inline-block;
+        font-size: 0.85em;
+    }
+    nav a:hover {
+        background: var(--neon-blue);
+        color: var(--darker);
+        box-shadow: 0 0 15px var(--neon-blue);
+    }
+    main {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px 20px;
+    }
+    section {
+        background: rgba(26, 26, 46, 0.8);
+        margin-bottom: 30px;
+        padding: 30px;
+        border-radius: 15px;
+        border-left: 5px solid var(--neon-blue);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    }
+    section.day1 { border-left-color: var(--neon-yellow); }
+    section.day2 { border-left-color: var(--accent); }
+    section.day3 { border-left-color: var(--neon-purple); }
+    section.scratch { border-left-color: var(--neon-green); }
+    section.blender { border-left-color: var(--neon-purple); }
+    h2 {
+        color: var(--neon-yellow);
+        font-size: 2em;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px dashed var(--wood);
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+    h2 .icon { font-size: 1.2em; }
+    h3 {
+        color: var(--neon-blue);
+        margin: 20px 0 10px;
+        font-size: 1.4em;
+    }
+    h4 {
+        color: var(--neon-yellow);
+        margin: 15px 0 8px;
+    }
+    .legend {
+        background: linear-gradient(135deg, rgba(139, 90, 43, 0.2), rgba(0, 229, 255, 0.1));
+        padding: 25px;
+        border-radius: 10px;
+        border: 2px dashed var(--neon-yellow);
+        font-style: italic;
+        font-size: 1.1em;
+        line-height: 1.8;
+    }
+    .legend::before {
+        content: "📖 ";
+        font-size: 1.5em;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        background: rgba(15, 15, 30, 0.5);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    th {
+        background: var(--wood);
+        color: var(--light);
+        padding: 12px;
+        text-align: left;
+        font-size: 1em;
+    }
+    td {
+        padding: 10px 12px;
+        border-bottom: 1px solid rgba(139, 90, 43, 0.3);
+        vertical-align: top;
+        font-size: 0.95em;
+    }
+    tr:hover td { background: rgba(0, 229, 255, 0.05); }
+    .badge {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 12px;
+        font-size: 0.8em;
+        margin: 2px;
+        font-weight: bold;
+    }
+    .badge-unimat { background: var(--neon-yellow); color: var(--darker); }
+    .badge-wood { background: var(--wood); color: var(--light); }
+    .badge-elec { background: var(--neon-blue); color: var(--darker); }
+    .badge-scratch { background: var(--neon-green); color: var(--darker); }
+    .badge-blender { background: var(--neon-purple); color: var(--light); }
+    .task-list {
+        list-style: none;
+        padding-left: 0;
+    }
+    .task-list li {
+        padding: 10px 15px;
+        margin: 8px 0;
+        background: rgba(0, 229, 255, 0.05);
+        border-left: 3px solid var(--neon-blue);
+        border-radius: 5px;
+    }
+    .task-list li::before {
+        content: "☐ ";
+        color: var(--neon-yellow);
+        font-weight: bold;
+    }
+    .warning-box {
+        background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(255, 214, 10, 0.1));
+        border: 2px solid var(--accent);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 15px 0;
+    }
+    .warning-box::before {
+        content: "⚠️ ";
+        font-size: 1.3em;
+    }
+    .speech-box {
+        background: rgba(139, 90, 43, 0.15);
+        border-left: 4px solid var(--wood-light);
+        padding: 20px;
+        margin: 15px 0;
+        border-radius: 0 10px 10px 0;
+        font-style: italic;
+    }
+    .speech-box strong {
+        color: var(--neon-yellow);
+        font-style: normal;
+        display: block;
+        margin-bottom: 10px;
+    }
+    .contest-card {
+        background: linear-gradient(135deg, rgba(0, 229, 255, 0.1), rgba(157, 78, 221, 0.1));
+        padding: 20px;
+        border-radius: 10px;
+        margin: 15px 0;
+        border: 1px solid var(--neon-blue);
+    }
+    .contest-card h4 {
+        color: var(--neon-blue);
+        font-size: 1.3em;
+        margin-bottom: 10px;
+    }
+    .checklist {
+        background: rgba(15, 15, 30, 0.8);
+        padding: 20px;
+        border-radius: 10px;
+        border: 2px solid var(--neon-yellow);
+    }
+    .checklist li {
+        list-style: none;
+        padding: 8px 0;
+        border-bottom: 1px dashed rgba(255, 214, 10, 0.2);
+    }
+    .checklist li::before {
+        content: "✅ ";
+    }
+    .concept-box {
+        background: var(--darker);
+        padding: 20px;
+        border-radius: 10px;
+        margin: 15px 0;
+        font-family: 'Courier New', monospace;
+        color: var(--neon-blue);
+        border: 1px solid var(--neon-blue);
+        overflow-x: auto;
+        white-space: pre;
+        font-size: 0.85em;
+    }
+    .code-block {
+        background: var(--darker);
+        padding: 15px;
+        border-radius: 8px;
+        font-family: 'Courier New', monospace;
+        color: var(--neon-green);
+        margin: 10px 0;
+        border: 1px dashed var(--neon-green);
+        overflow-x: auto;
+        white-space: pre-wrap;
+        font-size: 0.9em;
+    }
+    .circuit {
+        background: var(--darker);
+        padding: 15px;
+        border-radius: 8px;
+        font-family: 'Courier New', monospace;
+        color: var(--neon-blue);
+        margin: 10px 0;
+        border: 1px dashed var(--neon-blue);
+    }
+    .passport {
+        background: rgba(139, 90, 43, 0.1);
+        padding: 20px;
+        border-radius: 10px;
+        border: 2px solid var(--wood);
+    }
+    .passport table {
+        background: transparent;
+    }
+    .passport td:first-child {
+        font-weight: bold;
+        color: var(--neon-yellow);
+        width: 40%;
+    }
+    .passport td:last-child {
+        border-bottom: 1px solid var(--wood-light);
+    }
+    .direction-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin: 20px 0;
+    }
+    .direction-card {
+        background: rgba(15, 15, 30, 0.6);
+        padding: 15px;
+        border-radius: 10px;
+        border-top: 3px solid var(--neon-blue);
+        text-align: center;
+    }
+    .direction-card.unimat { border-top-color: var(--neon-yellow); }
+    .direction-card.wood { border-top-color: var(--wood); }
+    .direction-card.elec { border-top-color: var(--neon-blue); }
+    .direction-card.scratch { border-top-color: var(--neon-green); }
+    .direction-card.blender { border-top-color: var(--neon-purple); }
+    .direction-card .icon { font-size: 2em; margin-bottom: 10px; }
+    .direction-card h4 { margin: 5px 0; }
+    .direction-card p { font-size: 0.9em; color: var(--wood-light); }
+    footer {
+        text-align: center;
+        padding: 30px;
+        color: var(--wood-light);
+        border-top: 2px solid var(--wood);
+        margin-top: 40px;
+    }
+    @media (max-width: 768px) {
+        h1 { font-size: 2em; }
+        h2 { font-size: 1.5em; }
+        nav a { margin: 0 4px; font-size: 0.75em; padding: 6px 10px; }
+        table { font-size: 0.8em; }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo-container">
+        <svg class="logo-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#C69C6D" stroke-width="2">
+                <circle cx="50" cy="50" r="30" fill="#8B5A2B" opacity="0.3"/>
+                <path d="M50 15 L53 22 L58 20 L56 27 L63 28 L58 34 L63 39 L56 40 L58 47 L53 45 L50 52 L47 45 L42 47 L44 40 L37 39 L42 34 L37 28 L44 27 L42 20 L47 22 Z" fill="#8B5A2B"/>
+            </g>
+            <g stroke="#00E5FF" stroke-width="1.5" fill="none">
+                <path d="M50 50 L50 35 L60 25"/>
+                <path d="M50 50 L35 50 L25 40"/>
+                <path d="M50 50 L50 65 L60 75"/>
+                <path d="M50 50 L65 50 L75 60"/>
+                <circle cx="60" cy="25" r="2" fill="#00E5FF"/>
+                <circle cx="25" cy="40" r="2" fill="#00E5FF"/>
+                <circle cx="60" cy="75" r="2" fill="#00E5FF"/>
+                <circle cx="75" cy="60" r="2" fill="#00E5FF"/>
+            </g>
+            <circle cx="50" cy="50" r="6" fill="#FFD60A"/>
+            <circle cx="50" cy="50" r="10" fill="none" stroke="#FFD60A" stroke-width="1" opacity="0.6"/>
+            <path d="M50 44 L52 48 L48 48 L51 52 L49 52 L52 56" stroke="#FFD60A" stroke-width="1.5" fill="none"/>
+        </svg>
+        <div>
+            <h1>ЭЛЕКТРИУМ</h1>
+            <div class="subtitle">⚡ ПОРА В ДОРОГУ! ⚙️ 💻 🎨</div>
+        </div>
+    </div>
+    <p style="color: var(--wood-light); margin-top: 15px;">Деревообработка • Электроника • UNIMAT • Scratch • Blender</p>
+    <p style="color: var(--neon-blue); margin-top: 5px;">Возраст: 7–12 лет | Длительность: 3 дня | 6 часов в день</p>
+</header>
+
+<nav>
+    <a href="#legend">Легенда</a>
+    <a href="#goals">Цели</a>
+    <a href="#directions">Направления</a>
+    <a href="#schedule">Расписание</a>
+    <a href="#day1">День 1</a>
+    <a href="#day2">День 2</a>
+    <a href="#day3">День 3</a>
+    <a href="#scratch">ТЗ Scratch</a>
+    <a href="#blender">ТЗ Blender</a>
+    <a href="#tech">ТЗ Железо</a>
+    <a href="#final">Финал</a>
+    <a href="#speeches">Речи</a>
+    <a href="#contests">Конкурсы</a>
+    <a href="#checklist">Чек-лист</a>
+    <a href="#safety">ТБ</a>
+    <a href="#passport">Паспорт</a>
+</nav>
+
+<main>
+
+<section id="legend">
+    <h2><span class="icon">📖</span> Легенда практикума</h2>
+    <div class="legend">
+        «Добро пожаловать в город Электриум — место, где когда-то царил вечный свет. Но случилась беда: коварный вирус <strong>NPC</strong> (Нейро-Пиратский Код) захватил главный сервер города! Он отключил энергию, остановил механизмы и похитил <strong>Шлем Главного Инженера</strong>.<br><br>
+        NPC заявил, что вернёт шлем только тому, кто сможет обогнать его в <strong>кибер-гонке</strong> — и в цифровом мире <em>Scratch</em>, и на физической трассе! Но чтобы добраться до финиша, нам нужно восстановить город: <strong>выточить детали на станках</strong>, <strong>спаять электронику</strong>, <strong>собрать макет города</strong>, <strong>запрограммировать роверов в Scratch</strong> и <strong>построить 3D-копию Электриума в Blender</strong>.<br><br>
+        Вы — последняя надежда Электриума. <strong>Пора в дорогу!</strong>»
+    </div>
+</section>
+
+<section id="goals">
+    <h2><span class="icon">🎯</span> Дидактическая цель</h2>
+    <p>Сформировать у детей 7–12 лет <strong>комплексные инженерные компетенции</strong> через создание сквозного проекта (физический макет + цифровая симуляция) в условиях игровой сюжетной задачи.</p>
+    <h3>Ключевые компетенции:</h3>
+    <ul class="task-list">
+        <li>Работа на токарном и фрезерном оборудовании UNIMAT</li>
+        <li>Базовая деревообработка: разметка, пиление, шлифовка, склейка</li>
+        <li>Чтение электрических схем, пайка, работа с мультиметром</li>
+        <li>Основы визуального программирования в Scratch</li>
+        <li>Основы 3D-моделирования в Blender</li>
+        <li>Командная работа и инженерное мышление</li>
+    </ul>
+</section>
+
+<section id="directions">
+    <h2><span class="icon">🧭</span> 5 направлений практикума</h2>
+    <div class="direction-grid">
+        <div class="direction-card unimat">
+            <div class="icon">⚙️</div>
+            <h4>UNIMAT</h4>
+            <p>Токарная и фрезерная обработка. Точим мачты, колёса, декор</p>
+        </div>
+        <div class="direction-card wood">
+            <div class="icon">🪚</div>
+            <h4>Деревообработка</h4>
+            <p>Сборка макета города из лазерной фанеры, шлифовка, покраска</p>
+        </div>
+        <div class="direction-card elec">
+            <div class="icon">🔌</div>
+            <h4>Электроника</h4>
+            <p>Сборка роверов, пайка LED-подсветки, монтаж моторов</p>
+        </div>
+        <div class="direction-card scratch">
+            <div class="icon">🐱</div>
+            <h4>Scratch</h4>
+            <p>Программирование NPC, ровера, светофоров и логики гонки</p>
+        </div>
+        <div class="direction-card blender">
+            <div class="icon">🎨</div>
+            <h4>Blender</h4>
+            <p>3D-моделирование города, ровера и NPC, рендер финальной сцены</p>
+        </div>
+    </div>
+</section>
+
+<section id="schedule">
+    <h2><span class="icon">📅</span> Итоговое расписание (3 дня × 6 часов)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>День</th>
+                <th><span class="badge badge-unimat">UNIMAT</span> 1.5 ч</th>
+                <th><span class="badge badge-elec">Электроника</span> 1.5 ч</th>
+                <th><span class="badge badge-wood">Строймастер</span> 1.5 ч</th>
+                <th><span class="badge badge-scratch">Scratch/Blender</span> 1.5 ч</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>День 1</strong><br>«Разведка»</td>
+                <td>Точим трубки-мачты и колёса для роверов</td>
+                <td>Сборка роверов: моторы, фары, первая пайка</td>
+                <td>Подготовка шасси, шлифовка, пазы под провода</td>
+                <td><span class="badge badge-scratch">Scratch</span> Создание NPC, фона, управление ровером</td>
+            </tr>
+            <tr>
+                <td><strong>День 2</strong><br>«Стройка»</td>
+                <td>Фрезеруем декоративные элементы, барьеры</td>
+                <td>Монтаж LED-подсветки в дома и мачты</td>
+                <td>Сборка маяков, домов, арок из лазерной фанеры</td>
+                <td><span class="badge badge-blender">Blender</span> 3D-копия города, ровера и NPC</td>
+            </tr>
+            <tr>
+                <td><strong>День 3</strong><br>«Финал»</td>
+                <td>Финишная полировка колёс</td>
+                <td>Тестирование всех цепей, финальная проверка</td>
+                <td>Покраска, сборка макета города</td>
+                <td><span class="badge badge-scratch">Финал</span> Двойная гонка: Scratch + физика. Вручение Шлема!</td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>Роли педагогов:</h3>
+    <ul class="task-list">
+        <li><strong>Ведущий:</strong> сюжет, тайминг, мотивация, вручение «Шлема Главного Инженера»</li>
+        <li><strong>Педагог по станкам:</strong> инструктаж по ТБ, настройка UNIMAT, контроль точения/пиления</li>
+        <li><strong>Педагог по электронике:</strong> обучение пайке, работа с мультиметром, проверка схем</li>
+        <li><strong>Педагог по деревообработке:</strong> ручной инструмент, сборка макета, покраска</li>
+        <li><strong>IT-наставник:</strong> Scratch и Blender, помощь с кодом, рендеринг</li>
+    </ul>
+</section>
+
+<section id="day1" class="day1">
+    <h2><span class="icon">⚡</span> ДЕНЬ 1: РАЗВЕДКА И ПОДГОТОВКА</h2>
+    
+    <h3>Занятие 1.1 — UNIMAT (Точение)</h3>
+    <ul class="task-list">
+        <li>Трубка для маяка: заготовка 40×120 мм, выточить полую трубку-мачту (внутрь спрячем провода)</li>
+        <li>Колёса: выточить деревянные втулки для колёс, добиться идеальной гладкости</li>
+        <li><strong>ТБ:</strong> защитные очки, волосы убраны, не трогать станок во время вращения</li>
+    </ul>
+
+    <h3>Занятие 1.2 — Электроника (Сборка ровера)</h3>
+    <ul class="task-list">
+        <li>Мотор: приклеить мотор 3V на деревянное шасси термоклеем</li>
+        <li>Оси: вставить шпажки в пазы, надеть крышки-колёса, закрепить каплей клея</li>
+        <li>Питание: подключить отсек AA (2 батарейки) через выключатель к мотору</li>
+        <li>Фары: собрать цепь CR2032 → Выключатель → Резистор → LED 3 мм. Первая пайка!</li>
+    </ul>
+
+    <h3>Занятие 1.3 — Деревообработка (Шасси)</h3>
+    <ul class="task-list">
+        <li>Шлифовка краёв фанеры (P120 → P220)</li>
+        <li>Разметка и сверление отверстий для осей</li>
+        <li>Создание пазов для укладки проводов (кабель-менеджмент)</li>
+    </ul>
+
+    <h3>Занятие 1.4 — Scratch (Создание NPC)</h3>
+    <ul class="task-list">
+        <li>Выбрать или нарисовать спрайт NPC (робот, вирус, летающая тарелка)</li>
+        <li>Настроить движение NPC: патрулирование города</li>
+        <li>Нарисовать фон: футуристичный город с трубами и маяками</li>
+        <li>Добавить злобный звук NPC при приближении к роверу</li>
+    </ul>
+</section>
+
+<section id="day2" class="day2">
+    <h2><span class="icon">🔧</span> ДЕНЬ 2: СТРОЙКА И СВЕТ</h2>
+    
+    <h3>Занятие 2.1 — UNIMAT (Фрезерование)</h3>
+    <ul class="task-list">
+        <li>Изготовление декоративных элементов: спойлеры, мачты антенн</li>
+        <li>Производство деревянных барьеров для коллективной трассы</li>
+    </ul>
+
+    <h3>Занятие 2.2 — Электроника (Подсветка города)</h3>
+    <ul class="task-list">
+        <li>Провести провода от LED через полость мачты внутрь дома</li>
+        <li>Закрепить светодиод на вершине маяка (термоклей)</li>
+        <li>Спрятать батарейный отсек CR2032 внутрь здания</li>
+        <li>Проверка: горит ли свет? Не нагревается ли резистор?</li>
+    </ul>
+
+    <h3>Занятие 2.3 — Строймастер (Архитектура)</h3>
+    <ul class="task-list">
+        <li>Разложить детали из лазерной фанеры</li>
+        <li>Собрать корпуса домов, маяков и арок на клей ПВА</li>
+        <li>Установить выточенные трубки-мачты на вершины зданий</li>
+    </ul>
+
+    <h3>Занятие 2.4 — Blender (3D-копия города)</h3>
+    <ul class="task-list">
+        <li>Смоделировать 3D-копию своего города (кубы — дома, цилиндры — трубы)</li>
+        <li>Добавить 3D-модели ровера и NPC</li>
+        <li>Создать яркие материалы и текстуры</li>
+        <li>Сделать рендер финальной сцены</li>
+    </ul>
+</section>
+
+<section id="day3" class="day3">
+    <h2><span class="icon">🏁</span> ДЕНЬ 3: ФИНАЛ</h2>
+    
+    <h3>Занятие 3.1 — UNIMAT (Финишная обработка)</h3>
+    <ul class="task-list">
+        <li>Полировка деревянных колёс на войлочном круге с пастой ГОИ</li>
+        <li>Изготовление мелких деталей для трассы</li>
+    </ul>
+
+    <h3>Занятие 3.2 — Электроника (Тестирование)</h3>
+    <ul class="task-list">
+        <li>Финальная проверка всех цепей мультиметром</li>
+        <li>«Прозвонка» на обрыв перед подачей питания</li>
+        <li>Изоляция всех паяных соединений</li>
+    </ul>
+
+    <h3>Занятие 3.3 — Деревообработка (Финал)</h3>
+    <ul class="task-list">
+        <li>Шлифовка острых краёв</li>
+        <li>Покраска зданий и роверов акриловыми красками (неоновые цвета)</li>
+        <li>Сборка всех объектов в единый макет города на большом столе</li>
+    </ul>
+
+    <h3>Занятие 3.4 — ЭПИЧНЫЙ ФИНАЛ (Двойная гонка)</h3>
+    <ul class="task-list">
+        <li><strong>Цифровая гонка:</strong> запуск Scratch-игры. Кто быстрее обгонит NPC?</li>
+        <li><strong>Физическая гонка:</strong> роверы на трассе. Пройди город, не сбив постройки!</li>
+        <li><strong>Победа:</strong> победитель торжественно надевает Шлем Главного Инженера</li>
+        <li><strong>NPC побеждён!</strong> Электриум спасён</li>
+    </ul>
+</section>
+
+<section id="scratch" class="scratch">
+    <h2><span class="icon">🐱</span> ТЕХНИЧЕСКОЕ ЗАДАНИЕ: SCRATCH</h2>
+    <p><strong>Задача:</strong> создать цифровую гонку, чтобы победить NPC и спасти город!</p>
+
+    <h3>Шаг 1. Подготовка фона и NPC (Злодея)</h3>
+    <ul class="task-list">
+        <li>Фон: выбрать или нарисовать футуристичный город (высотки, маяки, трубы)</li>
+        <li>Спрайт NPC: нарисовать робота, вирус или летающую тарелку</li>
+        <li>Скрипт NPC: постоянное движение по трассе. При касании ровера — злобный звук</li>
+    </ul>
+    <div class="code-block">когда щёлкнут по зелёному флагу
+перейти в x: -200 y: 0
+всегда
+  повернуть в направлении (90)
+  идти (5) шагов
+  если на краю — оттолкнуться
+конец</div>
+
+    <h3>Шаг 2. Наш Ровер и Управление</h3>
+    <ul class="task-list">
+        <li>Добавить спрайт «Ровер» (вид сверху)</li>
+        <li>Настроить управление: ↑ — вперёд, ←/→ — поворот</li>
+        <li>Фары: при нажатии «Пробел» — эффект свечения</li>
+    </ul>
+    <div class="code-block">когда клавиша "стрелка вверх" нажата
+  идти (3) шагов
+  играть звук "мотор"
+
+когда клавиша "пробел" нажата
+  изменить [яркость] на (20)</div>
+
+    <h3>Шаг 3. Умные Светофоры</h3>
+    <ul class="task-list">
+        <li>Добавить спрайт «Светофор» с 2 костюмами: «Красный» и «Зелёный»</li>
+        <li>Переключение каждые 3 секунды</li>
+        <li>Логика: если ровер касается светофора на красный — он останавливается на 1 секунду</li>
+    </ul>
+    <div class="code-block">когда щёлкнут по зелёному флагу
+всегда
+  сменить костюм на [Зелёный]
+  ждать (3) секунд
+  сменить костюм на [Красный]
+  ждать (3) секунд
+конец</div>
+
+    <h3>Шаг 4. Логика Гонки (Победа/Поражение)</h3>
+    <ul class="task-list">
+        <li>Создать спрайт «Финишная черта» в конце трассы</li>
+        <li>Если ровер касается финиша — фанфары, надпись «Победа! Шлем наш!»</li>
+        <li>Если NPC касается финиша первым — экран темнеет, надпись «NPC победил...»</li>
+    </ul>
+</section>
+
+<section id="blender" class="blender">
+    <h2><span class="icon">🎨</span> ТЕХНИЧЕСКОЕ ЗАДАНИЕ: BLENDER</h2>
+    <p><strong>Задача:</strong> создать цифровую 3D-копию города Электриум!</p>
+
+    <h3>Этап 1. Базовые формы города</h3>
+    <ul class="task-list">
+        <li>Создать плоскость-основание (земля города)</li>
+        <li>Добавить кубы — корпуса домов (масштабировать по высоте)</li>
+        <li>Добавить цилиндры — трубы и мачты маяков</li>
+    </ul>
+
+    <h3>Этап 2. Моделирование ровера и NPC</h3>
+    <ul class="task-list">
+        <li>Ровер: композиция из куба (корпус), цилиндров (колёса), конуса (фара)</li>
+        <li>NPC: сфера (тело), конусы (антенны), светящийся «глаз»</li>
+    </ul>
+
+    <h3>Этап 3. Материалы и цвета</h3>
+    <ul class="task-list">
+        <li>Создать неоновые материалы: синий, жёлтый, фиолетовый</li>
+        <li>Добавить эффект свечения (Emission) для LED и фар</li>
+        <li>Назначить материалы объектам</li>
+    </ul>
+
+    <h3>Этап 4. Освещение и рендер</h3>
+    <ul class="task-list">
+        <li>Установить камеру под красивым ракурсом</li>
+        <li>Добавить источники света (Point, Sun)</li>
+        <li>Настроить параметры рендера (Cycles или Eevee)</li>
+        <li>Сделать финальный рендер и сохранить как PNG</li>
+    </ul>
+</section>
+
+<section id="tech">
+    <h2><span class="icon">📋</span> Технические задания: Железо</h2>
+    
+    <h3>🔌 ЭЛЕКТРОНИКА (Электро-Ровер)</h3>
+    <ul class="task-list">
+        <li><strong>Цепь 1 (Свет):</strong> CR2032 → Выключатель → Резистор (220 Ом) → LED 3 мм</li>
+        <li><strong>Цепь 2 (Движение):</strong> Отсек 2×AA → Выключатель → Мотор 3V с редуктором</li>
+        <li><strong>Требование:</strong> все паяные соединения изолированы, провода уложены в пазы</li>
+    </ul>
+
+    <h3>🪵 ДЕРЕВООБРАБОТКА (Макет города)</h3>
+    <ul class="task-list">
+        <li>Шасси ровера: фанера 4–6 мм, размер ~150×100 мм</li>
+        <li>Дома и маяки: детали из лазерной фанеры (готовый набор)</li>
+        <li>Обязательные элементы: пазы для проводов, крепление мотора, отверстия для осей</li>
+    </ul>
+
+    <h3>⚙️ UNIMAT</h3>
+    <ul class="task-list">
+        <li>Мачты: полые трубки из дерева, 40×120 мм</li>
+        <li>Колёса: деревянные втулки Ø 30–40 мм</li>
+        <li>Декор: фрезерованные спойлеры, барьеры для трассы</li>
+    </ul>
+</section>
+
+<section id="final">
+    <h2><span class="icon">🏁</span> Сценарий финала: Двойная гонка</h2>
+    
+    <h3>Подготовка трассы (на столе)</h3>
+    <p>Трасса — «Сквозь город». Вдоль длинного стола выставляются построенные детьми маяки и дома. Трасса огораживается картонными бортиками. В конце — <strong>Ворота</strong>, за ними <strong>NPC</strong> и <strong>Шлем</strong>.</p>
+
+    <h3>🎮 Этап 1: Цифровая гонка (Scratch)</h3>
+    <ul class="task-list">
+        <li>Каждый ребёнок запускает свою Scratch-игру на компьютере</li>
+        <li>Задача: обогнать NPC и добраться до финиша</li>
+        <li>Победитель Scratch-гонки получает право <strong>первым стартовать</strong> в физической гонке</li>
+    </ul>
+
+    <h3>🏎️ Этап 2: Физическая гонка (Роверы)</h3>
+    <ul class="task-list">
+        <li>Дети ставят роверы на стартовую линию (в порядке мест из Scratch)</li>
+        <li>По сигналу включаются моторы — роверы едут через город</li>
+        <li>Задача: доехать до Ворот, не сбив постройки</li>
+        <li>Первый ровер, врезавшийся в мишень на Воротах, открывает их</li>
+    </ul>
+
+    <h3>🏆 Этап 3: Вручение Шлема</h3>
+    <ul class="task-list">
+        <li>Ворота распахиваются, NPC сдаётся</li>
+        <li>Победитель торжественно надевает Шлем Главного Инженера</li>
+        <li>Все участники получают сертификаты «Инженер Электриума»</li>
+    </ul>
+
+    <div class="warning-box">
+        <strong>Лайфхак для ведущего:</strong> Ворота закрыть на магнитную защёлку или липучку. Они эффектно распахнутся от рывка ниточки, которую дёргает ведущий в момент финиша.
+    </div>
+</section>
+
+<section id="speeches">
+    <h2><span class="icon">🎤</span> Речи и закрытие</h2>
+    
+    <div class="speech-box">
+        <strong>А. Вступление (Перед гонкой)</strong>
+        «Инженеры Электриума! Посмотрите на этот город. Ещё три дня назад здесь была лишь груда фанеры и проводов. А сегодня? Сегодня здесь горят маяки, которые вы спаяли своими руками! Крутятся колёса, которые вы выточили на станках! А на экранах — ваш Scratch-код, который обхитрил NPC! И в Blender вы воссоздали весь город в 3D! Но NPC всё ещё запер главные Врата. Он заявил, что только тот, кто победит и в цифре, и в реальности, достоин Шлема. Готовы ли вы доказать, что вы — настоящие повелители механизмов и кода?»
+    </div>
+
+    <div class="speech-box">
+        <strong>Б. Комментарии во время цифровой гонки (Scratch)</strong>
+        <em>(включается 8-битная музыка в стиле ретро-гейминга)</em><br><br>
+        «Ровер Саши обходит светофор на зелёный — идеальная логика!»<br>
+        «NPC у Маши хитрый — он мечется по всей трассе!»<br>
+        «Финишная черта близко! Кто первый коснётся спрайта?»
+    </div>
+
+    <div class="speech-box">
+        <strong>В. Комментарии во время физической гонки</strong>
+        <em>(включается эпичная музыка — саундтрек из "Трансформеров")</em><br><br>
+        «Ровер "Молния" Ивана уходит в отрыв, но задевает маяк! Осторожно, вибрация!»<br>
+        «Ровер "Кибер-Шторм" Маши использует инерцию, отскакивает от бортика!»<br>
+        «Внимание! Сбой в навигации! Ровер разворачивает, но мотор не сдаётся!»
+    </div>
+
+    <div class="speech-box">
+        <strong>Г. Момент раскрытия (Кульминация)</strong>
+        <em>(Первый ровер врезается в ворота. Ворота распахиваются. Звук "глитча", NPC сдаётся).</em><br><br>
+        <strong>NPC:</strong> «Нет! Это невозможно! Мои расчёты были идеальны! Но вы... вы создали то, что нельзя просчитать. Вы создали Инженерное Чудо — и в железе, и в коде, и в 3D. Забирайте свой Шлем...»
+    </div>
+
+    <div class="speech-box">
+        <strong>Д. Финальная речь</strong>
+        «Ребята, посмотрите на свои руки. На них следы от наждачки, запах канифоли. А в головах — блоки Scratch и полигоны Blender. Вы не просто играли. Вы учились читать схемы, писать код, моделировать в 3D. Вы поняли, что настоящее инженерное чудо рождается на стыке дисциплин: когда дерево встречается с электроникой, а физический макет — с цифровым двойником.<br><br>
+        Шлем Главного Инженера — это символ того, что вы теперь умеете создавать миры. И в реальности, и в коде. Город Электриум спасён. Но впереди — реальный мир. И я знаю, что в нём у вас всё получится!<br><br>
+        <strong>Объявляю вас настоящими Инженерами Электриума!</strong>»
+    </div>
+</section>
+
+<section id="contests">
+    <h2><span class="icon">🎮</span> Дополнительные конкурсы и активности</h2>
+    
+    <div class="contest-card">
+        <h4>🛠️ Конкурс 1: «Тюнинг-ателье "Ржавчина-Стоп"» (15–20 мин)</h4>
+        <p><strong>Суть:</strong> 15 минут на украшение роверов перед физической гонкой.</p>
+        <p><strong>Материалы:</strong> фольга, цветной скотч, маркеры, наклейки, проволока.</p>
+        <p><strong>Фишка:</strong> каждый ребёнок за 10 секунд питчит свою машину.</p>
+    </div>
+
+    <div class="contest-card">
+        <h4>🏙️ Конкурс 2: «Инженерный питч города» (Голосование)</h4>
+        <p><strong>Суть:</strong> дети осматривают построенный ими город из фанеры.</p>
+        <p><strong>Механика:</strong> у каждого 2 стикера — наклеить на два самых красивых здания (не на своё!).</p>
+        <p><strong>Итог:</strong> награждение грамотами «Главный Архитектор Электриума».</p>
+    </div>
+
+    <div class="contest-card">
+        <h4>🐱 Конкурс 3: «Лучший Scratch-код» (Голосование)</h4>
+        <p><strong>Суть:</strong> каждый показывает свою Scratch-игру на большом экране.</p>
+        <p><strong>Критерии:</strong> оригинальность NPC, сложность трассы, звуковые эффекты.</p>
+        <p><strong>Итог:</strong> награждение грамотой «Мастер Кода Электриума».</p>
+    </div>
+
+    <div class="contest-card">
+        <h4>🎨 Конкурс 4: «Лучший 3D-рендэр» (Голосование)</h4>
+        <p><strong>Суть:</strong> вывод рендеров из Blender на проектор.</p>
+        <p><strong>Критерии:</strong> композиция, работа со светом, креативность модели.</p>
+        <p><strong>Итог:</strong> награждение грамотой «3D-Архитектор Электриума».</p>
+    </div>
+
+    <div class="contest-card">
+        <h4>🧩 Конкурс 5: «Взлом NPC» (Командная загадка)</h4>
+        <p><strong>Суть:</strong> чтобы разблокировать Ворота, команда должна расшифровать код NPC.</p>
+        <p><strong>Механика:</strong> шифр, где номиналы резисторов соответствуют буквам алфавита.</p>
+        <p><strong>Задача:</strong> решить за 3 минуты — Ворота «разблокируются».</p>
+    </div>
+</section>
+
+<section id="checklist">
+    <h2><span class="icon">📝</span> Чек-лист для организаторов</h2>
+    <div class="checklist">
+        <ul class="task-list">
+            <li><strong>Батарейки:</strong> проверить заряд у ВСЕХ роверов. Запас CR2032 и AA</li>
+            <li><strong>Компьютеры:</strong> установить Scratch (офлайн-редактор) и Blender на все машины</li>
+            <li><strong>Проектор/экран:</strong> для демонстрации Scratch-гонок и Blender-рендеров</li>
+            <li><strong>Трасса:</strong> ограничить пространство на столе, бортики из картона</li>
+            <li><strong>Ворота и NPC:</strong> ширма с магнитной защёлкой, Шлем спрятан за ней</li>
+            <li><strong>Ремонтный набор:</strong> «пит-стоп» — термоклей, изолента, провода, паяльник</li>
+            <li><strong>Музыка:</strong> 8-битная (для Scratch) + эпичный рок (для физ. гонки) + торжественная (награждение)</li>
+            <li><strong>Сертификаты:</strong> распечатать дипломы «Инженер Электриума» с логотипом</li>
+            <li><strong>Сувениры:</strong> каждый ребёнок увозит ровер + кусочек города + USB с его Scratch-проектом и Blender-рендером</li>
+        </ul>
+    </div>
+</section>
+
+<section id="safety">
+    <h2><span class="icon">🛡️</span> Техника безопасности (ТБ)</h2>
+    
+    <div class="warning-box">
+        <h4>⚙️ UNIMAT</h4>
+        <ul class="task-list">
+            <li>Работа только в защитных очках</li>
+            <li>Волосы убраны под шапочку или заколоты</li>
+            <li>Запрещено трогать вращающуюся заготовку руками</li>
+            <li>Педагог находится на расстоянии вытянутой руки</li>
+        </ul>
+    </div>
+
+    <div class="warning-box">
+        <h4>🔥 Пайка</h4>
+        <ul class="task-list">
+            <li>Работа только под вытяжкой или в проветриваемом помещении</li>
+            <li>Паяльник лежит только на термостойкой подставке</li>
+            <li>Проверка полярности LED и мотора перед подачей питания</li>
+        </ul>
+    </div>
+
+    <div class="warning-box">
+        <h4>🪚 Лазерная резка / Деревообработка</h4>
+        <ul class="task-list">
+            <li>Дети не находятся рядом с лазером во время резки — только готовая фанера</li>
+            <li>Направление движения стамески/наждака — «от себя»</li>
+            <li>Аккуратная работа с клеем ПВА/термоклеем (использовать подложку)</li>
+        </ul>
+    </div>
+
+    <div class="warning-box">
+        <h4>💻 Работа за компьютером</h4>
+        <ul class="task-list">
+            <li>Перерыв каждые 30 минут (гимнастика для глаз)</li>
+            <li>Правильная посадка: спина прямо, экран на уровне глаз</li>
+            <li>Запрет на установку стороннего ПО</li>
+        </ul>
+    </div>
+</section>
+
+<section id="passport">
+    <h2><span class="icon">📄</span> Паспорт изделия (заполняется в конце)</h2>
+    <div class="passport">
+        <table>
+            <tr><td>Имя:</td><td>____________________________________</td></tr>
+            <tr><td>Название ровера:</td><td>____________________________________</td></tr>
+            <tr><td>Что делал на UNIMAT:</td><td>____________________________________</td></tr>
+            <tr><td>Сколько светодиодов в городе:</td><td>____________________________________</td></tr>
+            <tr><td>Самое сложное в Scratch:</td><td>____________________________________</td></tr>
+            <tr><td>Мой любимый объект в Blender:</td><td>____________________________________</td></tr>
+            <tr><td>Сложность пайки (1–5):</td><td>____________________________________</td></tr>
+            <tr><td>Самая полезная команда мультиметра:</td><td>____________________________________</td></tr>
+        </table>
+    </div>
+</section>
+
+<section>
+    <h2><span class="icon">🎓</span> Методичка для ведущего (сценарий по дням)</h2>
+    <table>
+        <thead>
+            <tr><th>День</th><th>Что говорит ведущий</th><th>Действия</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>1</strong></td>
+                <td>«Ребята, NPC захватил город и забрал Шлем! Чтобы его победить, нам нужно построить роверов — и в железе, и в коде!»</td>
+                <td>Надеть шлем, показать детям. Раздать задания.</td>
+            </tr>
+            <tr>
+                <td><strong>2</strong></td>
+                <td>«Город почти готов, но NPC обесточил дома! Нам нужно провести свет через мачты. А ещё — воссоздать Электриум в 3D, чтобы увидеть его глазами инженера!»</td>
+                <td>Помогать с пайкой, сборкой домов, запуском Blender.</td>
+            </tr>
+            <tr>
+                <td><strong>3</strong></td>
+                <td>«Это финальная битва! Покажите, на что вы способны — и в Scratch, и на трассе!»</td>
+                <td>Провести двойную гонку, вручить шлем победителю.</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+</main>
+
+<footer>
+    <p>⚡ ЭЛЕКТРИУМ • Инженерный практикум для детей 7–12 лет ⚙️ 💻 🎨</p>
+    <p style="margin-top: 10px; font-size: 0.9em;">Деревообработка • Электроника • UNIMAT • Scratch • Blender</p>
+    <p style="margin-top: 10px; color: var(--neon-blue);">«Создавай. Паяй. Точи. Программируй. Моделируй. Побеждай!»</p>
+    <p style="margin-top: 10px; font-size: 0.8em; color: var(--wood-light);">By ivanw4 | 2026</p>
+</footer>
+
+</body>
+</html>
